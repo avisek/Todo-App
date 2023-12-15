@@ -4,10 +4,11 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from './vite-plugin-express'
 
-console.log(process.env)
-
-const BASE = '/Todo-App/'
-const PORT = 3000
+const base =
+  process.env['GITHUB_ACTIONS'] === 'true'
+    ? `/${process.env['GITHUB_REPOSITORY'].split('/')[1]}/`
+    : '/'
+const port = 3000
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 const srcDir = resolve(rootDir, './src')
@@ -18,13 +19,13 @@ const backendDir = resolve(srcDir, './backend')
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // base: BASE,
+  base: base,
   root: frontendDir,
   publicDir: publicDir,
   envDir: rootDir,
   server: {
     host: true,
-    port: PORT,
+    port: port,
     strictPort: true,
   },
   build: {
