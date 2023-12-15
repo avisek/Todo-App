@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { Task } from '../shared/Task'
 import { remult } from 'remult'
-import { TasksController } from '../shared/TasksControlletr'
+import { TasksController } from '../shared/TasksController'
 
 const taskRepo = remult.repo(Task)
 

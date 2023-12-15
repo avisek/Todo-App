@@ -2,20 +2,13 @@ import express from 'express'
 // import { join } from 'node:path/posix'
 import { remultExpress } from 'remult/remult-express'
 import { Task } from '../shared/Task'
-import { TasksController } from '../shared/TasksControlletr'
+import { TasksController } from '../shared/TasksController'
 import { createPostgresDataProvider } from 'remult/postgres'
 
 export const app = express()
 
-// app.use(express.json())
-// app.use(express.urlencoded({ extended: false }))
-
 // const api = express.Router()
 // app.use(join(import.meta.env.BASE_URL, '/api'), api)
-
-// api.get('/test', (_, res) =>
-//   res.json({ greeting: 'Hello from Express!' })
-// )
 
 //#region auth
 import session from 'cookie-session'
@@ -54,7 +47,7 @@ app.get('/hi', (_, res) => res.send('hello'))
 
 const entities = [Task]
 
-const api = remultExpress({
+const remultApi = remultExpress({
   entities,
   controllers: [TasksController],
   dataProvider: createPostgresDataProvider({
@@ -66,11 +59,11 @@ const api = remultExpress({
   }),
   getUser: (req) => req.session?.['user'],
 })
-app.use(api)
+app.use(remultApi)
 
 import swaggerUi from 'swagger-ui-express'
 
-const openApiDocument = api.openApiDoc({ title: 'remult-react-todo' })
+const openApiDocument = remultApi.openApiDoc({ title: 'remult-react-todo' })
 app.get('/api/openApi.json', (_, res) => res.json(openApiDocument))
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument))
 
@@ -87,7 +80,7 @@ const yoga = createYoga({
     resolvers,
   }),
 })
-app.use(yoga.graphqlEndpoint, api.withRemult, yoga)
+app.use(yoga.graphqlEndpoint, remultApi.withRemult, yoga)
 
 if (!process.env['VITE']) {
   const frontendFiles = process.cwd() + '/dist'
