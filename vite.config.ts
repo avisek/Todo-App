@@ -4,6 +4,8 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from './vite-plugin-express'
 
+console.log(process.env)
+
 const BASE = '/Todo-App/'
 const PORT = 3000
 
