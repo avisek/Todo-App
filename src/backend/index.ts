@@ -51,7 +51,7 @@ const remultApi = remultExpress({
   dataProvider: createPostgresDataProvider({
     connectionString:
       process.env['DATABASE_URL'] ||
-      'postgresql://postgres:DA-1-bcbGGfC32DF3bCb*3G5C-Aa2cB4@roundhouse.proxy.rlwy.net:49408/railway' ||
+      'postgresql://postgres:e2CdC3E16CdbD3bbCGebd-g3e-bCCbAG@roundhouse.proxy.rlwy.net:46870/railway' ||
       'postgres://postgres:MASTERKEY@localhost/postgres',
   }),
   getUser: (req) => req.session?.['user'],
