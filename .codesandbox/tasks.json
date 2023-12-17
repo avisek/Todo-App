@@ -15,11 +15,7 @@
     },
     "dev": {
       "name": "dev",
-      "command": "pnpm dev",
-      "runAtStart": true,
-      "preview": {
-        "port": 3000
-      }
+      "command": "pnpm dev"
     },
     "build": {
       "name": "build",
@@ -31,7 +27,11 @@
     },
     "preview": {
       "name": "preview",
-      "command": "pnpm build && pnpm preview --port 3000"
+      "command": "pnpm build && pnpm preview --port 3000",
+      "runAtStart": true,
+      "preview": {
+        "port": 3000
+      }
     }
   }
 }
